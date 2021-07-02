@@ -39,6 +39,24 @@ class DatabaseHandler
         }
     }
 
+    public function consultarUltimoNumero()
+    {
+        try {
+            $sqlQuery = "SELECT * FROM " . $this->table . " DESC LIMIT 1 ORDER BY numero";
+            if ($resultado = $this->conn->query($sqlQuery)) {
+                return
+                    mysqli_fetch_row($resultado);
+            }
+            return [
+                'numero' =>
+                'No hay registros',
+                'divisores' => ''
+            ];
+        } catch (\Throwable $th) {
+            echo 'Ocurrió un error consultando números ' . $th;
+        }
+    }
+
     public function guardarNumeroPerfecto($numeroPerfecto, $divisores)
     {
         try {
