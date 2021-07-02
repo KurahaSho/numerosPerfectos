@@ -1,0 +1,42 @@
+importar DATABASE_HANDLER
+
+INICIO NUMEROS_PERFECTOS
+	
+	INICIO FUNCION procesarRango(obligatorio numero_final, opcional numero_inicio = 1, opcional guardar = Falso)
+	{
+
+		Lista numerosPerfectos
+		para (indice = numero_inicio, 
+			hasta que indice sea menor o igual numero_final, 
+			indice aumenta en 1) hacer
+		{
+			divisoresNumero = llamar esNumeroPerfecto(indice)
+		}
+
+	}
+	FIN FUNCION
+	
+	
+	INICIO FUNCION esNumeroPerfecto(obligatorio numero, opcional guardar = Falso)
+	{
+		sumaDivisores = 0
+		para (indice = 1, hasta que indice sea menor o igual raiz(numero), numero aumenta en 1) hacer
+		{
+			si (numero modulo indice es igual a 0) entonces
+			{
+				sumaDivisores = sumaDivisores + indice
+	
+			}
+		}
+		
+		si (sumaDivisores es igual a numero) entonces
+		{
+			llamar guardarNumeroPerfecto(indice, divisores) de DATABASE_HANDLER
+		}
+		retornar ''
+
+	} 
+	FIN FUNCION
+
+
+FIN NUMEROS_PERFECTOS
