@@ -5,11 +5,22 @@ include_once "./numeros_perfectos.php";
 $databaseHandler = new DatabaseHandler();
 $numerosPerfectos = new NumerosPerfectos();
 $consulta = $databaseHandler->consultarNumerosPerfectos();
-
+$ultimoNumeroGMP = gmp_init(0);
 if (isset($_POST['btnGuardar'])) {
     //** guarda los números perfectos al dar click en el botón btnGuardar */
+    $numeroInicio = gmp_init(strlen($_POST['numeroInicio']) > 0 ? $_POST['numeroInicio'] : 1, 10);
+    $numeroFinal = gmp_init(strlen($_POST['numeroFinal']) > 0 ? $_POST['numeroFinal'] : 1, 10);
+    // $ultimoNumero = $databaseHandler->consultarUltimoNumero();
 
-    $numerosPerfectos->procesarRango($_POST['numeroFinal'], strlen($_POST['numeroInicio']) > 0 ? $_POST['numeroInicio'] : 1, true);
+    //TODO: terminar implementación de resumen de búsqueda
+    // $ultimoNumeroGMP = gmp_init($ultimoNumero[1] > 0 ? $ultimoNumero[1] : 0);
+
+    if ($numeroFinal > $numeroInicio) {
+        //** Evalúa cual número debería ser el primero */
+        $numerosPerfectos->procesarRango(numeroFinal: $numeroFinal, numeroInicio: $numeroInicio);
+    } else {
+        $numerosPerfectos->procesarRango(numeroFinal: $numeroInicio, numeroInicio: $numeroFinal);
+    }
 }
 
 if (isset($_POST['btnBorrar'])) {
@@ -47,7 +58,7 @@ if (isset($_POST['btnBorrar'])) {
                     </div>
                     <!-- límite superior -->
                     <div class="col-8 offset-2 mt-3">
-                        <input type="number" class="form-control" name="numeroFinal" id="numeroFinal" placeholder="Segundo número" min="1" required>
+                        <input type="number" class="form-control" name="numeroFinal" id="numeroFinal" placeholder="Segundo número" min="1">
                     </div>
                     <!-- alertas de resultado o error -->
 
@@ -62,21 +73,13 @@ if (isset($_POST['btnBorrar'])) {
                         <?php if (isset($_GET['guardado'])) : ?>
                             <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Guardado!</strong> puedes contienuar editando<br>
+                                <strong>Guardado!</strong> puedes continuar editando <?php echo $ultimoNumeroGMP; ?><br>
                             </div>
                         <?php endif; ?>
                         <?php if (isset($_GET['borrado'])) : ?>
                             <div class="alert alert-primary">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 <strong>Se ha borrado el registro</strong> puedes continuar editando</a>.
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (isset($_GET['entradaValida'])) : ?>
-                            <div class="alert alert-warning">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Error de formato</strong> por favor ingresa un límite inferior y superior en ese orden<br>
-                                estaremos añadiendo más opciones de formato.</a>.
                             </div>
                         <?php endif; ?>
                     </div>
