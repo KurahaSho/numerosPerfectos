@@ -1,6 +1,11 @@
 importar DATABASE_HANDLER
 
 INICIO NUMEROS_PERFECTOS
+
+	INICIO CONSTRUCTOR NUMEROS_PERFECTOS()
+	{
+		conectarse a la base de datos
+	}
 	
 	INICIO FUNCION procesarRango(obligatorio numero_final, opcional numero_inicio = 1, opcional guardar = Falso)
 	{
@@ -9,7 +14,24 @@ INICIO NUMEROS_PERFECTOS
 				hasta que indice sea menor o igual numero_final, 
 				indice aumenta en 1) hacer
 			{
-				llamar esNumeroPerfecto(indice)
+				sumaDivisores = 0
+				divisores = ''
+				
+				para (indice = 1, hasta que indice sea menor numero, numero aumenta en 1) hacer
+				{
+					si (numero modulo indice es igual a 0) entonces
+					{
+						sumaDivisores = sumaDivisores + indice
+						divisores = divisores + ','
+					}
+				}
+				
+				si (sumaDivisores es igual a numero) entonces
+				{
+					llamar guardarNumeroPerfecto(indice, divisores) de DATABASE_HANDLER
+				}
+				$numeroInicio aumenta en 1
+				llamada recursiva procesarRango(numero_final, numero_inicio)
 			}
 		}else{
 			redireccionar a url de error
@@ -17,26 +39,4 @@ INICIO NUMEROS_PERFECTOS
 	}
 	FIN FUNCION
 	
-	
-	INICIO FUNCION esNumeroPerfecto(obligatorio numero, opcional guardar = Falso)
-	{
-		sumaDivisores = 0
-		divisores = ''
-		
-		para (indice = 1, hasta que indice sea menor numero, numero aumenta en 1) hacer
-		{
-			si (numero modulo indice es igual a 0) entonces
-			{
-				sumaDivisores = sumaDivisores + indice
-				divisores = divisores + ','
-			}
-		}
-		
-		si (sumaDivisores es igual a numero) entonces
-		{
-			llamar guardarNumeroPerfecto(indice, divisores) de DATABASE_HANDLER
-		}
-
-	} 
-	FIN FUNCION
 FIN NUMEROS_PERFECTOS

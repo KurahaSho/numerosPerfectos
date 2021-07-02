@@ -13,32 +13,25 @@ class NumerosPerfectos
     public function procesarRango(
         $numeroFinal,
         $numeroInicio = 1,
-        $guardar = false
     ) {
         if ($numeroFinal > $numeroInicio && $numeroInicio >= 1) {
-            $this->esNumeroPerfecto($numeroInicio, $guardar);
-            $numeroInicio += 2;
-            $this->procesarRango($numeroFinal, $numeroInicio, $guardar);
+            $sumaDivisores = 0;
+            $divisores = '';
+
+            for ($i = 1; $i < $numeroInicio; $i++) {
+                if ($numeroInicio % $i == 0) {
+                    $sumaDivisores += $i;
+                    $divisores = $divisores . " $i ,";
+                }
+            }
+            $posicionPlus = strlen($divisores) - 1;
+            if ($sumaDivisores == $numeroInicio) {
+                $this->databaseHandler->guardarNumeroPerfecto($numeroInicio, str_replace('+', '', $divisores, $posicionPlus));
+            }
+            $numeroInicio += 1;
+            $this->procesarRango($numeroFinal, $numeroInicio);
         } else {
             header('Location: ?entradaValida=false');
-        }
-    }
-
-    public function esNumeroPerfecto($numero, $guardar = false)
-    {
-        $sumaDivisores = 0;
-        $divisores = '';
-
-        for ($i = 1; $i < $numero; $i++) {
-            if ($numero % $i == 0) {
-                $sumaDivisores += $i;
-                $divisores = " $i ,";
-            }
-        }
-        if ($guardar) {
-            if ($sumaDivisores == $numero) {
-                $this->databaseHandler->guardarNumeroPerfecto($numero, $divisores);
-            }
         }
     }
 }

@@ -1,14 +1,18 @@
 importar NUMEROS_PERFECTOS
+importar DATABASE_HANDLER
 
 INICIO INDEX
 	
+	consulta = llamar obtenerNumerosPerfectos() de DATABASE_HANDLER
+
+	imprimir "Números perfectos"
+
 	llamar procesarRango(
 	numeroFinal, 
 	si numeroInicio es mayor a 0 pasar numeroInicio,
 	guardar) de NUMEROS_PERFECTOS
 	
-
-	imprimir "Ingrese un número de inicio y un número final"
+	imprimir "A continuación ingrese el número de inicio y el número final para verificar los naturales perfectos"
 	imprimir "Ingrese el primer número"
 	Leer primerNumeroDeRango a numeroInicio
 	imprimir "Ingrese el segundo número"
@@ -17,7 +21,7 @@ INICIO INDEX
 	imprimir boton : "guardar" en click llamar procesarRango() de NUMEROS_PERFECTOS
 	imprimir boton : "limpiar" en click limpiarEntradas
 	
-	consulta = llamar obtenerNumerosPerfectos()
+	
 	para (cada elemento de consulta como numeroPerfecto) hacer
 	{
 		imprimir "numero: " y elemento "numero" de numeroPerfecto y "divisores: " y  convertir a lista elemento "divisores" de numeroPerfecto

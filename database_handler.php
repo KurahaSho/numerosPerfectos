@@ -46,7 +46,7 @@ class DatabaseHandler
             if ($resultado = $this->conn->query($sqlQuery)) {
                 header('Location: ?guardado=true');
             } else {
-                echo $numeroPerfecto . $divisores;
+                header('Location: ?noguardado = true');
             }
         } catch (\Throwable $th) {
             echo 'Ocurrió un error guardando número';
