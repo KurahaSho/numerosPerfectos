@@ -1,7 +1,7 @@
 INICIO DATABASE_HANDLER
 	conexion
 
-	INICIO CONSTRUCTOR DATABASE_HANDLER() 
+	INICIO FUNCION conectar() 
 	{	
 		intentar
 		{
@@ -11,24 +11,25 @@ INICIO DATABASE_HANDLER
 			imprimir "no pudimos conectarnos a la base de datos."
 		}
 	}
+	FIN FUNCION
 	
 	INICIO FUNCION consultarNumerosPerfectos()
 	{	
 		intentar
 		{
-			numerosPerfectos =  seleccionar idNumeroPerfecto, numeroPerfecto,  en base de datos
+			numerosPerfectos =  seleccionar idNumeroPerfecto, numeroPerfecto, divisores  en base de datos
 		}en error
 		{
-			imprimir "Ocurrió un error consultando numeros"
+			imprimir "Ocurrió un error consultando números"
 		}
 	}
-	
+	FIN FUNCION
+
 	INICIO FUNCION guardarNumeroPerfecto(obligatorio numeroPerfecto, obligatorio divisores)
 	{
 		intentar
 		{
-			divisoresJson = convertir divisores a json
-			idNumeroPerfecto = con conexion insertar numeroPerfecto en numeroPerfecto, 
+			con conexion insertar numeroPerfecto en numero, 
 				divisoresJson en divisores en base de datos
 		}en error
 		{
@@ -48,4 +49,6 @@ INICIO DATABASE_HANDLER
 		}
 		
 	}
+	FIN FUNCION
+
 FIN DATABASE_HANDLER
