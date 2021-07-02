@@ -7,10 +7,13 @@ $numerosPerfectos = new NumerosPerfectos();
 $consulta = $databaseHandler->consultarNumerosPerfectos();
 
 if (isset($_POST['btnGuardar'])) {
+    //** guarda los números perfectos al dar click en el botón btnGuardar */
+
     $numerosPerfectos->procesarRango($_POST['numeroFinal'], strlen($_POST['numeroInicio']) > 0 ? $_POST['numeroInicio'] : 1, true);
 }
 
 if (isset($_POST['btnBorrar'])) {
+    //** Borra el número perfecto al dar click en el botón btnBorrar */
     $databaseHandler->eliminarNumeroPerfecto($_POST['idNumeroPerfecto']);
 }
 
@@ -38,18 +41,48 @@ if (isset($_POST['btnBorrar'])) {
             <p>A continuación ingrese el número de inicio y el número final para verificar los naturales perfectos</p>
             <form action="" method="post">
                 <div class="row">
+                    <!-- límite inferior -->
                     <div class="col-8 offset-2">
                         <input type="number" class="form-control" name="numeroInicio" id="numeroInicio" placeholder="Primer número" min="1">
                     </div>
+                    <!-- límite superior -->
                     <div class="col-8 offset-2 mt-3">
                         <input type="number" class="form-control" name="numeroFinal" id="numeroFinal" placeholder="Segundo número" min="1" required>
                     </div>
-                    <?php if (isset($_GET['noguardado'])) : ?>
-                        <div class="alert alert-danger">
-                            <strong>Error</strong> Intenta de nuevo <br> Verifica la longitud de tu número<br>
-                            estamos trabajando en dar más soporte</a>.
-                        </div>
-                    <?php endif; ?>
+                    <!-- alertas de resultado o error -->
+
+                    <div class="col-6 offset-3 mt-2">
+                        <?php if (isset($_GET['noguardado'])) : ?>
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Error</strong> Intenta de nuevo <br> Verifica la longitud de tu número<br>
+                                estamos trabajando en dar más soporte</a>.
+                            </div>
+                        <?php endif; ?>
+                        <?php if (isset($_GET['guardado'])) : ?>
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Guardado!</strong> puedes contienuar editando<br>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (isset($_GET['borrado'])) : ?>
+                            <div class="alert alert-primary">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Se ha borrado el registro</strong> puedes continuar editando</a>.
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (isset($_GET['entradaValida'])) : ?>
+                            <div class="alert alert-warning">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Error de formato</strong> por favor ingresa un límite inferior y superior en ese orden<br>
+                                estaremos añadiendo más opciones de formato.</a>.
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+
+                    <!-- botones de enviar y limpiar -->
                     <div class="col-8 offset-2 mt-3">
                         <button type="submit" class="btn btn-success" name="btnGuardar">Guardar</button>
                         <button type="reset" class="btn btn-danger">Limpiar</button>

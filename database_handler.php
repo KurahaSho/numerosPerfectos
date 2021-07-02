@@ -20,6 +20,7 @@ class DatabaseHandler
         return $this->conn;
     }
 
+    //** Funciones CRD para mysql */
     public function consultarNumerosPerfectos()
     {
         try {
@@ -43,13 +44,11 @@ class DatabaseHandler
         try {
             $sqlQuery = "INSERT INTO "
                 . $this->table . "(numero, divisores) values ($numeroPerfecto, '$divisores')";
-            if ($resultado = $this->conn->query($sqlQuery)) {
-                header('Location: ?guardado=true');
-            } else {
-                header('Location: ?noguardado = true');
-            }
+            $this->conn->query($sqlQuery);
+            header('Location: ?guardado=true');
         } catch (\Throwable $th) {
             echo 'Ocurrió un error guardando número';
+            header('Location: ?noguardado = true');
         }
     }
 

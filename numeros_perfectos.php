@@ -14,7 +14,12 @@ class NumerosPerfectos
         $numeroFinal,
         $numeroInicio = 1,
     ) {
+        //** Esta función establece un rango y guarda números perfectos dentro de ese rango */
+        //** El ciclo en la función toma presuntos números naturales perfectos y los filtra con el if*/
+
+
         if ($numeroFinal > $numeroInicio && $numeroInicio >= 1) {
+            //Este if detiene las llamadas recursivas a la app
             $sumaDivisores = 0;
             $divisores = '';
 
@@ -24,13 +29,14 @@ class NumerosPerfectos
                     $divisores = $divisores . " $i ,";
                 }
             }
-            $posicionPlus = strlen($divisores) - 1;
+            // $posicionPlus = strlen($divisores) - 3
             if ($sumaDivisores == $numeroInicio) {
-                $this->databaseHandler->guardarNumeroPerfecto($numeroInicio, str_replace('+', '', $divisores, $posicionPlus));
+                $this->databaseHandler->guardarNumeroPerfecto($numeroInicio, substr($divisores, 0, strlen($divisores) - 2));
             }
             $numeroInicio += 1;
+            // Se llama recursivamente a la función
             $this->procesarRango($numeroFinal, $numeroInicio);
-        } else {
+        } else if ($numeroFinal < $numeroInicio || $numeroFinal < 1 || $numeroInicio < 1) {
             header('Location: ?entradaValida=false');
         }
     }
