@@ -14,10 +14,9 @@ INICIO INDEX
 	imprimir "Ingrese el segundo número"
 	Leer segundoNumeroDeRango a numeroFinal
 
-	imprimir boton : "guardar" en click llamar procesarNumero(Verdadero) de NUMEROS_PERFECTOS
-	imprimir boton : "previsualizar" en click llamar procesarNumero(Falso) de NUMEROS_PERFECTOS
+	imprimir boton : "guardar" en click llamar procesarRango() de NUMEROS_PERFECTOS
 	imprimir boton : "limpiar" en click limpiarEntradas
-
+	
 	consulta = llamar obtenerNumerosPerfectos()
 	para (cada elemento de consulta como numeroPerfecto) hacer
 	{

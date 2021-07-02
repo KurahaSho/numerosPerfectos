@@ -10,7 +10,7 @@ class DatabaseHandler
 
     public function __construct()
     {
-        $this->conn = null;
+
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
         /* se manejan errores de conexión */
         if (mysqli_connect_errno()) {
@@ -25,6 +25,7 @@ class DatabaseHandler
         try {
             $sqlQuery = "SELECT * FROM " . $this->table . "";
             if ($resultado = $this->conn->query($sqlQuery)) {
+
                 return $resultado;
             }
             return [
@@ -40,11 +41,12 @@ class DatabaseHandler
     public function guardarNumeroPerfecto($numeroPerfecto, $divisores)
     {
         try {
-            json_encode($divisores);
             $sqlQuery = "INSERT INTO "
                 . $this->table . "(numero, divisores) values ($numeroPerfecto, '$divisores')";
-            if ($this->conn->query($sqlQuery)) {
+            if ($resultado = $this->conn->query($sqlQuery)) {
                 header('Location: ?guardado=true');
+            } else {
+                echo $numeroPerfecto . $divisores;
             }
         } catch (\Throwable $th) {
             echo 'Ocurrió un error guardando número';

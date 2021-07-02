@@ -2,24 +2,16 @@
 include_once "./database_handler.php";
 include_once "./numeros_perfectos.php";
 
-function jsonToArray($json)
-{
-    $array = json_decode($json);
-    return $array;
-}
-
 $databaseHandler = new DatabaseHandler();
 $numerosPerfectos = new NumerosPerfectos();
 $consulta = $databaseHandler->consultarNumerosPerfectos();
 
 if (isset($_POST['btnGuardar'])) {
-    $numerosPerfectos->procesarRango($_POST['numeroInicio'], $_POST['numeroFinal'], true);
-}
-if (isset($_POST['btnPrevisualizar'])) {
-    $numerosPerfectos->procesarRango($_POST['numeroInicio'], $_POST['numeroFinal']);
+    $numerosPerfectos->procesarRango($_POST['numeroFinal'], $_POST['numeroInicio'], true);
 }
 
 if (isset($_POST['btnBorrar'])) {
+    $databaseHandler->eliminarNumeroPerfecto($_POST['idNumeroPerfecto']);
 }
 
 ?>
@@ -30,7 +22,7 @@ if (isset($_POST['btnBorrar'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Numeros perfectos</title>
 
     <!-- bootstrap 4 CDN scripts y sytlesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -54,7 +46,6 @@ if (isset($_POST['btnBorrar'])) {
                     </div>
                     <div class="col-8 offset-2 mt-3">
                         <button type="submit" class="btn btn-success" name="btnGuardar">Guardar</button>
-                        <button type="submit" class="btn btn-primary" name="btnPrevisualizar">Previsualizar</button>
                         <button type="reset" class="btn btn-danger">Limpiar</button>
                     </div>
                 </div>
@@ -73,7 +64,7 @@ if (isset($_POST['btnBorrar'])) {
                         echo ' = ' . $row['numero'];
                         ?>
                         <form action="" method="POST">
-                            <input type="text" value="<?php echo $row['id'] ?>" hidden>
+                            <input type="text" value="<?php echo $row['id'] ?>" name='idNumeroPerfecto' hidden>
                             <button type="submit" class="btn btn-danger" name="btnBorrar">Borrar</button>
                         </form>
                     </div>
