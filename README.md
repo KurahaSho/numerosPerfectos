@@ -3,22 +3,22 @@
 Los números **naturales perfectos** son enteros positivos que cumplen con la regla de  n = sum(divisores propios) donde multiplos propios son aquellos que dejan como residuo de la división 0.
 En este desarrollo se intenta hayar números **naturales perfectos** a partir de un intervalo escogido por el usuario, quien ingresa los números que establecen el límite.
  
-###### Implementación
+## Implementación
 
 Los números naturales perfectos tienen profunda relación con los números primos, euclides demostró que mediante la fórmula
 2^(n-1) (2^n - 1), sin embargo se ha descartado esta opción, puesto que había que elevar cada número del rango a escoger para poder verificar, lo que significaría números mucho más grandes y un espacion mayor en memoria ram.
 
-###### Metodología
+## Metodología
 
 Para el proyecto se usó php orientado a objetos para el procesamiento de datos, html, css y bootstrap en general para el desarrollo del front y finalmente usamos una base de datos (numeros_palindromos), que contiene una sola tabla donde serán almacenados los naturales perfectos y sus divisores (numeros).
 
-###### En trabajo
+## En trabajo
 
 - Aumentar rendimiento
 - Crear tests
 - Garantizar ejecución prolongada (actualmente tras 120s el servidor detiene la ejecución)
 
-###### Uso
+## Uso
 
 El modulo principal del programa es la clase llamada `NumerosPerfectos` la cual tiene una función recursiva `procesarRango(numeroFinal, numeroInicio)`,  que recibe como parámetros 2 números y crea un rango de acción, dentro de ese rango se escoge a fueza bruta números objetivos, "presuntos palíndromos", a partir de esa suposición se obtienen los divisores propios del número con un el bucle `for ($i = 1; $i < $numeroInicio; $i++)` valiendose nuevamente de la fuerza bruta y el operador módulo que nos dice cuando es un divisor propio `if ($numeroInicio % $i == 0)`.<br/><br/>
 
@@ -31,7 +31,7 @@ También podrás encontrar una carpeta con el pseudocódigo usado para planear l
 Y por último, no menos importante la clase `DatabaseHandler`  que tiene funciones para la escritura, borrado y consulta en la base de datos (mysql).<br/>
 El funcionamiento de la base de datos es sencillo, sin embargo no hay que dejar de lado el formato del campo **divisores**, en el cual se separa cada número con comas de la forma n1, n2, n3, ... ,<br/>
 
-###### Nuestra base de datos
+## Nuestra base de datos
 
 la estructura de la base de datos es la siguiente:<br/><br/>
 | numerosperfectos |
